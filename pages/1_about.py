@@ -1,3 +1,4 @@
+
 import base64
 from pathlib import Path
 
@@ -10,205 +11,391 @@ st.set_page_config(
     initial_sidebar_state="collapsed",
 )
 
+# ---------- BLACK & WHITE THEME ----------
 st.markdown("""
 <style>
-@import url('https://fonts.googleapis.com/css2?family=Prompt:wght@300;400;500;600;700&family=Inter:wght@400;600;800&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Prompt:wght@300;400;500;600;700&family=Inter:wght@400;600;700;800&display=swap');
 
-/* Main App Layout - Modern Dark Theme */
 .stApp {
-    background-color: #0B0F19;
-    background-image: 
-        radial-gradient(circle at 15% 50%, rgba(99, 102, 241, 0.15) 0%, transparent 25%),
-        radial-gradient(circle at 85% 30%, rgba(139, 92, 246, 0.15) 0%, transparent 25%),
-        radial-gradient(circle at 50% 80%, rgba(6, 182, 212, 0.1) 0%, transparent 30%);
-    background-attachment: fixed;
+    background: #f5f5f5;
+    color: #171717;
+    font-family: 'Prompt', 'Inter', sans-serif;
 }
 
-html, body, [class*="css"] { 
-    font-family: 'Prompt', 'Inter', sans-serif; 
-    color: #E2E8F0;
+html, body, [class*="css"] {
+    font-family: 'Prompt', 'Inter', sans-serif;
 }
 
-/* Hero Section */
-.hero { 
-    text-align: center; 
-    padding: 50px 20px 20px 20px; 
+.block-container {
+    max-width: 1150px;
+    padding-top: 2rem;
+    padding-bottom: 2rem;
 }
+
+/* HEADER */
+.hero {
+    text-align: center;
+    padding: 25px 15px 35px;
+}
+
 .hero h1 {
+    color: #111111;
     font-family: 'Inter', 'Prompt', sans-serif;
-    font-size: 3rem;
+    font-size: clamp(2.3rem, 5vw, 3.5rem);
     font-weight: 800;
-    background: linear-gradient(135deg, #818CF8 0%, #A78BFA 50%, #22D3EE 100%);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    margin-bottom: 8px;
-    letter-spacing: -0.5px;
+    letter-spacing: -1px;
+    margin-bottom: 10px;
 }
-.hero p { 
-    color: #94A3B8; 
-    font-size: 1.1rem; 
-    letter-spacing: 0.5px; 
-    margin-top: 0; 
+
+.hero p {
+    color: #737373;
+    font-size: 1rem;
     font-weight: 300;
 }
 
-/* Profile Photo Wrapper */
-.profile-photo-wrap {
+/* PROFILE LAYOUT */
+.profile-container {
     display: flex;
-    justify-content: center;
-    margin-top: 20px;
-}
-.profile-photo-wrap img {
-    width: 200px;
-    height: 200px;
-    border-radius: 50%;
-    border: 3px solid transparent;
-    background:
-        linear-gradient(#1E293B, #1E293B) padding-box,
-        linear-gradient(135deg, #818CF8, #A78BFA, #22D3EE) border-box;
-    box-shadow: 0 0 40px rgba(139, 92, 246, 0.3);
-    object-fit: cover;
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
-}
-.profile-photo-wrap img:hover {
-    transform: scale(1.03);
-    box-shadow: 0 0 50px rgba(139, 92, 246, 0.5);
+    align-items: center;
+    gap: 45px;
+    max-width: 950px;
+    margin: 10px auto 35px;
+    padding: 38px;
+    background: #ffffff;
+    border: 1px solid #e5e5e5;
+    border-radius: 25px;
+    box-shadow: 0 12px 35px rgba(0,0,0,0.045);
 }
 
-/* Profile Card */
-.profile-card {
-    max-width: 450px;
-    margin: 30px auto 0 auto;
-    background: rgba(30, 41, 59, 0.6);
-    border: 1px solid rgba(148, 163, 184, 0.1);
-    border-radius: 20px;
-    padding: 32px 36px;
+/* PHOTO */
+.photo-column {
+    flex: 0 0 300px;
     text-align: center;
-    backdrop-filter: blur(12px);
-    -webkit-backdrop-filter: blur(12px);
-    box-shadow: 0 10px 30px -5px rgba(0, 0, 0, 0.3);
 }
-.profile-card h2 {
-    color: #F1F5F9;
-    font-family: 'Inter', 'Prompt', sans-serif;
-    font-size: 1.5rem;
+
+.profile-photo {
+    width: 270px;
+    height: 320px;
+    object-fit: cover;
+    object-position: center;
+    border-radius: 20px;
+    border: 1px solid #dedede;
+    filter: grayscale(100%);
+    transition: all 0.35s ease;
+    box-shadow: 0 12px 28px rgba(0,0,0,0.12);
+}
+
+.profile-photo:hover {
+    filter: grayscale(0%);
+    transform: translateY(-4px);
+}
+
+.photo-placeholder {
+    width: 270px;
+    height: 320px;
+    margin: auto;
+    border-radius: 20px;
+    background: #171717;
+    color: #ffffff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 5rem;
+}
+
+/* INFORMATION */
+.info-column {
+    flex: 1;
+    min-width: 0;
+}
+
+.eyebrow {
+    color: #737373;
+    font-size: 0.78rem;
+    letter-spacing: 3px;
+    font-weight: 600;
+    margin-bottom: 12px;
+}
+
+.profile-name {
+    font-family: 'Prompt', sans-serif;
+    font-size: clamp(1.6rem, 3vw, 2.3rem);
+    line-height: 1.5;
     font-weight: 700;
-    margin: 0 0 20px 0;
+    color: #111111;
+    margin-bottom: 8px;
+    overflow-wrap: anywhere;
 }
+
+.profile-role {
+    color: #737373;
+    font-size: 0.95rem;
+    margin-bottom: 30px;
+}
+
 .info-row {
     display: flex;
-    justify-content: space-between;
     align-items: center;
-    padding: 14px 4px;
-    border-top: 1px solid rgba(148, 163, 184, 0.15);
-    color: #E2E8F0;
+    justify-content: space-between;
+    gap: 15px;
+    padding: 17px 0;
+    border-top: 1px solid #e5e5e5;
+}
+
+.info-label {
+    color: #737373;
+    font-size: 0.92rem;
+    white-space: nowrap;
+}
+
+.info-value {
+    color: #171717;
+    font-size: 0.95rem;
+    font-weight: 600;
+    text-align: right;
+}
+
+.profile-badge {
+    display: inline-block;
+    background: #171717;
+    color: #ffffff;
+    border-radius: 30px;
+    padding: 8px 16px;
+    font-size: 0.8rem;
+    margin-top: 20px;
+}
+
+/* BOTTOM SECTION */
+.section-title {
+    text-align: center;
+    font-size: 1.25rem;
+    font-weight: 600;
+    color: #171717;
+    margin: 35px 0 18px;
+}
+
+.bottom-card {
+    background: #ffffff;
+    border: 1px solid #e5e5e5;
+    border-radius: 16px;
+    padding: 22px;
+    text-align: center;
+    transition: 0.25s ease;
+}
+
+.bottom-card:hover {
+    background: #171717;
+    color: #ffffff;
+    transform: translateY(-4px);
+}
+
+.bottom-icon {
+    font-size: 1.8rem;
+    margin-bottom: 8px;
+}
+
+.bottom-title {
     font-size: 1rem;
+    font-weight: 600;
 }
-.info-row:first-of-type { border-top: none; }
-.info-row span.label { color: #94A3B8; font-weight: 400; }
-.info-row span.value { font-weight: 600; color: #A5B4FC; letter-spacing: 0.5px; }
 
-/* Hide default Streamlit elements */
-footer, #MainMenu { visibility: hidden; }
-[data-testid="stSidebar"], [data-testid="stSidebarCollapsedControl"] { visibility: visible !important; }
+.bottom-desc {
+    color: #737373;
+    font-size: 0.85rem;
+    margin-top: 6px;
+}
 
-/* Sidebar Styling */
+.bottom-card:hover .bottom-desc {
+    color: #d4d4d4;
+}
+
+/* SIDEBAR */
 [data-testid="stSidebar"] {
-    background: #0F1525 !important;
-    border-right: 1px solid rgba(148, 163, 184, 0.1) !important;
+    background: #ffffff !important;
+    border-right: 1px solid #e5e5e5;
 }
+
 [data-testid="stSidebarNav"] {
     padding-top: 20px;
 }
+
 [data-testid="stSidebarNav"]::before {
     content: "ML HUB NAVIGATION";
     display: block;
-    margin: 0 20px 20px 20px;
+    margin: 0 20px 20px;
     padding-bottom: 16px;
-    border-bottom: 1px solid rgba(148, 163, 184, 0.15);
+    border-bottom: 1px solid #e5e5e5;
     font-family: 'Inter', sans-serif;
     font-size: 0.75rem;
     font-weight: 700;
     letter-spacing: 2px;
-    color: #64748B;
+    color: #737373;
 }
+
 [data-testid="stSidebarNav"] a {
     margin: 4px 12px !important;
     padding: 12px 16px !important;
     border-radius: 10px;
-    color: #94A3B8 !important;
-    font-family: 'Prompt', sans-serif;
-    font-weight: 500;
-    font-size: 0.95rem;
-    transition: all 0.2s ease;
-    background: transparent !important;
+    color: #525252 !important;
 }
+
 [data-testid="stSidebarNav"] a:hover {
-    background: rgba(99, 102, 241, 0.1) !important;
-    color: #C7D2FE !important;
+    background: #f0f0f0 !important;
+    color: #111111 !important;
 }
+
 [data-testid="stSidebarNav"] a[aria-current="page"] {
-    background: linear-gradient(90deg, rgba(99, 102, 241, 0.2) 0%, transparent 100%) !important;
-    color: #A5B4FC !important;
-    border-left: 3px solid #818CF8;
+    background: #171717 !important;
+    color: #ffffff !important;
     font-weight: 600;
 }
 
-/* เปลี่ยนข้อความเมนู: app -> หน้าหลัก, about -> ผู้พัฒนา */
-[data-testid="stSidebarNav"] li:nth-child(1) a * { font-size: 0 !important; }
-[data-testid="stSidebarNav"] li:nth-child(1) a::after { content: "🏠 หน้าหลัก"; font-size: 0.95rem !important; }
-[data-testid="stSidebarNav"] li:nth-child(2) a * { font-size: 0 !important; }
-[data-testid="stSidebarNav"] li:nth-child(2) a::after { content: "🧑‍💻 ผู้พัฒนา"; font-size: 0.95rem !important; }
-
-/* Footer */
+/* FOOTER */
 .custom-footer {
     text-align: center;
-    color: #64748B;
-    margin-top: 50px;
-    padding: 30px 20px;
-    font-size: 0.85rem;
-    border-top: 1px solid rgba(148, 163, 184, 0.1);
+    color: #737373;
+    margin-top: 45px;
+    padding: 25px 10px;
+    font-size: 0.83rem;
+    border-top: 1px solid #e5e5e5;
+}
+
+footer, #MainMenu {
+    visibility: hidden;
+}
+
+/* MOBILE */
+@media (max-width: 700px) {
+    .profile-container {
+        flex-direction: column;
+        gap: 28px;
+        padding: 24px 18px;
+    }
+
+    .photo-column {
+        flex: none;
+        width: 100%;
+    }
+
+    .profile-photo,
+    .photo-placeholder {
+        width: min(100%, 270px);
+        height: 300px;
+    }
+
+    .info-column {
+        width: 100%;
+    }
 }
 </style>
 """, unsafe_allow_html=True)
 
+# ---------- HEADER ----------
 st.markdown("""
 <div class="hero">
-    <h1>ผู้พัฒนา</h1>
-    <p>ข้อมูลผู้จัดทำโปรเจค Machine Learning Hub</p>
+    <h1>ABOUT ME.</h1>
+    <p>ข้อมูลผู้พัฒนา Machine Learning Hub</p>
 </div>
 """, unsafe_allow_html=True)
 
-# โหลดรูปภาพ (ตรวจสอบให้แน่ใจว่าไฟล์ assets/1.jpg มีอยู่จริง)
-photo_path = Path(__file__).resolve().parent.parent / "assets" / "1.jpg"
+# ---------- LOAD PHOTO ----------
+photo_path = (
+    Path(__file__).resolve().parent.parent
+    / "assets"
+    / "1.jpg"
+)
+
+photo_html = ""
+
 try:
-    photo_b64 = base64.b64encode(photo_path.read_bytes()).decode()
-    st.markdown(
-        f'<div class="profile-photo-wrap"><img src="data:image/jpeg;base64,{photo_b64}" alt="Profile Photo"></div>',
-        unsafe_allow_html=True,
-    )
-except FileNotFoundError:
-    st.markdown(
-        '<div class="profile-photo-wrap"><div style="width:200px;height:200px;border-radius:50%;background:#1E293B;border:3px solid #818CF8;display:flex;align-items:center;justify-content:center;font-size:4rem;">🧑‍💻</div></div>',
-        unsafe_allow_html=True,
-    )
+    photo_b64 = base64.b64encode(
+        photo_path.read_bytes()
+    ).decode("utf-8")
 
-st.markdown("""
-<div class="profile-card">
-    <h2>จิรศักดิ์ โมกกงจักร</h2>
-    <div class="info-row">
-        <span class="label">รหัสนักศึกษา</span>
-        <span class="value">664245003</span>
+    photo_html = f"""
+        <img
+            class="profile-photo"
+            src="data:image/jpeg;base64,{photo_b64}"
+            alt="Developer Profile"
+        >
+    """
+except (FileNotFoundError, OSError):
+    photo_html = """
+        <div class="photo-placeholder">🧑‍💻</div>
+    """
+
+# ---------- PROFILE ----------
+st.markdown(f"""
+<div class="profile-container">
+
+    <div class="photo-column">
+        {photo_html}
     </div>
-    <div class="info-row">
-        <span class="label">หมู่เรียน</span>
-        <span class="value">Sec. 66/43</span>
+
+    <div class="info-column">
+        <div class="eyebrow">THE DEVELOPER</div>
+
+        <div class="profile-name">
+            จิรศักดิ์ โมกกงจักร
+        </div>
+
+        <div class="profile-role">
+            Computer Science Student
+        </div>
+
+        <div class="info-row">
+            <span class="info-label">🎓 รหัสนักศึกษา</span>
+            <span class="info-value">664245003</span>
+        </div>
+
+        <div class="info-row">
+            <span class="info-label">📚 หมู่เรียน</span>
+            <span class="info-value">Sec. 66/43</span>
+        </div>
+
+        <div class="info-row">
+            <span class="info-label">💻 สาขาวิชา</span>
+            <span class="info-value">Computer Science</span>
+        </div>
+
+        <div class="profile-badge">
+            ✦ MACHINE LEARNING HUB
+        </div>
     </div>
+
 </div>
 """, unsafe_allow_html=True)
 
+# ---------- SKILLS / PROJECTS ----------
+st.markdown(
+    '<div class="section-title">WHAT I DO</div>',
+    unsafe_allow_html=True,
+)
+
+col1, col2, col3 = st.columns(3, gap="medium")
+
+items = [
+    ("💻", "Programming", "พัฒนาโปรแกรมและเว็บไซต์"),
+    ("🤖", "Machine Learning", "เรียนรู้การใช้โมเดล AI"),
+    ("🗄️", "Database", "จัดการข้อมูลและฐานข้อมูล"),
+]
+
+for col, (icon, title, desc) in zip(
+    [col1, col2, col3], items
+):
+    with col:
+        st.markdown(f"""
+        <div class="bottom-card">
+            <div class="bottom-icon">{icon}</div>
+            <div class="bottom-title">{title}</div>
+            <div class="bottom-desc">{desc}</div>
+        </div>
+        """, unsafe_allow_html=True)
+
+# ---------- FOOTER ----------
 st.markdown("""
 <div class="custom-footer">
-    Made with ❤️ using Streamlit · Machine Learning Projects 2026
+    <strong>ML HUB</strong><br>
+    Designed with simplicity · Made with ♥ using Streamlit · 2026
 </div>
 """, unsafe_allow_html=True)
