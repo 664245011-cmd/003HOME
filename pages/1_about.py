@@ -32,7 +32,7 @@ html, body, [class*="css"] {
     padding-bottom: 2rem;
 }
 
-/* HERO */
+/* HEADER */
 .hero {
     text-align: center;
     padding: 45px 20px 20px;
@@ -80,7 +80,7 @@ html, body, [class*="css"] {
 
 /* PROFILE CARD */
 .profile-card {
-    max-width: 500px;
+    max-width: 550px;
     margin: 30px auto 0;
     background: #ffffff;
     border: 1px solid #e5e5e5;
@@ -96,14 +96,6 @@ html, body, [class*="css"] {
     box-shadow: 0 15px 40px rgba(0, 0, 0, 0.08);
 }
 
-.profile-card h2 {
-    color: #111111;
-    font-family: 'Prompt', sans-serif;
-    font-size: 1.55rem;
-    font-weight: 700;
-    margin: 0 0 22px;
-}
-
 .profile-tag {
     display: inline-block;
     background: #171717;
@@ -115,6 +107,36 @@ html, body, [class*="css"] {
     margin-bottom: 22px;
 }
 
+/* NAME + STUDENT ID */
+.name-id-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 12px;
+    margin-bottom: 22px;
+    text-align: left;
+}
+
+.name-id-row h2 {
+    color: #111111;
+    font-family: 'Prompt', sans-serif;
+    font-size: 1.4rem;
+    font-weight: 700;
+    margin: 0;
+}
+
+.student-id {
+    background: #171717;
+    color: #ffffff;
+    padding: 7px 12px;
+    border-radius: 8px;
+    font-weight: 600;
+    font-size: 0.9rem;
+    white-space: nowrap;
+}
+
+/* INFORMATION */
 .info-row {
     display: flex;
     justify-content: space-between;
@@ -124,6 +146,7 @@ html, body, [class*="css"] {
     border-top: 1px solid #e5e5e5;
     color: #171717;
     font-size: 0.95rem;
+    text-align: left;
 }
 
 .info-row span.label {
@@ -135,6 +158,7 @@ html, body, [class*="css"] {
     color: #171717;
     font-weight: 600;
     letter-spacing: 0.3px;
+    text-align: right;
 }
 
 /* SIDEBAR */
@@ -235,9 +259,20 @@ footer, #MainMenu {
         width: 175px;
         height: 175px;
     }
+
+    .name-id-row {
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+    }
+
+    .name-id-row h2 {
+        font-size: 1.25rem;
+    }
 }
 </style>
 """, unsafe_allow_html=True)
+
 
 # HEADER
 st.markdown("""
@@ -246,6 +281,7 @@ st.markdown("""
     <p>ข้อมูลผู้จัดทำโปรเจกต์ Machine Learning Hub</p>
 </div>
 """, unsafe_allow_html=True)
+
 
 # PROFILE PHOTO
 photo_path = (
@@ -289,16 +325,16 @@ except (FileNotFoundError, OSError):
     </div>
     """, unsafe_allow_html=True)
 
+
 # PROFILE INFORMATION
 st.markdown("""
 <div class="profile-card">
+
     <div class="profile-tag">THE DEVELOPER</div>
 
-    <h2>จิรศักดิ์ โมกกงจักร</h2>
-
-    <div class="info-row">
-        <span class="label">🎓 รหัสนักศึกษา</span>
-        <span class="value">664245003</span>
+    <div class="name-id-row">
+        <h2>จิรศักดิ์ โมกกงจักร</h2>
+        <span class="student-id">664245003</span>
     </div>
 
     <div class="info-row">
@@ -310,8 +346,10 @@ st.markdown("""
         <span class="label">💻 สาขาวิชา</span>
         <span class="value">Computer Science</span>
     </div>
+
 </div>
 """, unsafe_allow_html=True)
+
 
 # FOOTER
 st.markdown("""
