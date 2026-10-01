@@ -11,11 +11,11 @@ st.set_page_config(
     initial_sidebar_state="collapsed",
 )
 
-# ---------- BLACK & WHITE THEME ----------
 st.markdown("""
 <style>
 @import url('https://fonts.googleapis.com/css2?family=Prompt:wght@300;400;500;600;700&family=Inter:wght@400;600;700;800&display=swap');
 
+/* MAIN */
 .stApp {
     background: #f5f5f5;
     color: #171717;
@@ -27,22 +27,22 @@ html, body, [class*="css"] {
 }
 
 .block-container {
-    max-width: 1150px;
+    max-width: 1100px;
     padding-top: 2rem;
     padding-bottom: 2rem;
 }
 
-/* HEADER */
+/* HERO */
 .hero {
     text-align: center;
-    padding: 25px 15px 35px;
+    padding: 45px 20px 20px;
 }
 
 .hero h1 {
-    color: #111111;
     font-family: 'Inter', 'Prompt', sans-serif;
-    font-size: clamp(2.3rem, 5vw, 3.5rem);
+    font-size: 3rem;
     font-weight: 800;
+    color: #111111;
     letter-spacing: -1px;
     margin-bottom: 10px;
 }
@@ -53,166 +53,99 @@ html, body, [class*="css"] {
     font-weight: 300;
 }
 
-/* PROFILE LAYOUT */
-.profile-container {
+/* PROFILE PHOTO */
+.profile-photo-wrap {
     display: flex;
-    align-items: center;
-    gap: 45px;
-    max-width: 950px;
-    margin: 10px auto 35px;
-    padding: 38px;
+    justify-content: center;
+    margin-top: 25px;
+}
+
+.profile-photo-wrap img {
+    width: 200px;
+    height: 200px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 4px solid #ffffff;
+    outline: 1px solid #d4d4d4;
+    box-shadow: 0 12px 35px rgba(0, 0, 0, 0.12);
+    transition: all 0.3s ease;
+    filter: grayscale(100%);
+}
+
+.profile-photo-wrap img:hover {
+    transform: scale(1.04);
+    filter: grayscale(0%);
+    box-shadow: 0 15px 40px rgba(0, 0, 0, 0.18);
+}
+
+/* PROFILE CARD */
+.profile-card {
+    max-width: 500px;
+    margin: 30px auto 0;
     background: #ffffff;
     border: 1px solid #e5e5e5;
-    border-radius: 25px;
-    box-shadow: 0 12px 35px rgba(0,0,0,0.045);
-}
-
-/* PHOTO */
-.photo-column {
-    flex: 0 0 300px;
+    border-radius: 22px;
+    padding: 32px 36px;
     text-align: center;
+    box-shadow: 0 10px 35px rgba(0, 0, 0, 0.04);
+    transition: all 0.3s ease;
 }
 
-.profile-photo {
-    width: 270px;
-    height: 320px;
-    object-fit: cover;
-    object-position: center;
-    border-radius: 20px;
-    border: 1px solid #dedede;
-    filter: grayscale(100%);
-    transition: all 0.35s ease;
-    box-shadow: 0 12px 28px rgba(0,0,0,0.12);
+.profile-card:hover {
+    border-color: #a3a3a3;
+    box-shadow: 0 15px 40px rgba(0, 0, 0, 0.08);
 }
 
-.profile-photo:hover {
-    filter: grayscale(0%);
-    transform: translateY(-4px);
+.profile-card h2 {
+    color: #111111;
+    font-family: 'Prompt', sans-serif;
+    font-size: 1.55rem;
+    font-weight: 700;
+    margin: 0 0 22px;
 }
 
-.photo-placeholder {
-    width: 270px;
-    height: 320px;
-    margin: auto;
-    border-radius: 20px;
+.profile-tag {
+    display: inline-block;
     background: #171717;
     color: #ffffff;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 5rem;
-}
-
-/* INFORMATION */
-.info-column {
-    flex: 1;
-    min-width: 0;
-}
-
-.eyebrow {
-    color: #737373;
+    padding: 6px 15px;
+    border-radius: 30px;
     font-size: 0.78rem;
-    letter-spacing: 3px;
-    font-weight: 600;
-    margin-bottom: 12px;
-}
-
-.profile-name {
-    font-family: 'Prompt', sans-serif;
-    font-size: clamp(1.6rem, 3vw, 2.3rem);
-    line-height: 1.5;
-    font-weight: 700;
-    color: #111111;
-    margin-bottom: 8px;
-    overflow-wrap: anywhere;
-}
-
-.profile-role {
-    color: #737373;
-    font-size: 0.95rem;
-    margin-bottom: 30px;
+    letter-spacing: 1px;
+    margin-bottom: 22px;
 }
 
 .info-row {
     display: flex;
-    align-items: center;
     justify-content: space-between;
-    gap: 15px;
-    padding: 17px 0;
+    align-items: center;
+    gap: 12px;
+    padding: 16px 4px;
     border-top: 1px solid #e5e5e5;
-}
-
-.info-label {
-    color: #737373;
-    font-size: 0.92rem;
-    white-space: nowrap;
-}
-
-.info-value {
     color: #171717;
     font-size: 0.95rem;
-    font-weight: 600;
-    text-align: right;
 }
 
-.profile-badge {
-    display: inline-block;
-    background: #171717;
-    color: #ffffff;
-    border-radius: 30px;
-    padding: 8px 16px;
-    font-size: 0.8rem;
-    margin-top: 20px;
-}
-
-/* BOTTOM SECTION */
-.section-title {
-    text-align: center;
-    font-size: 1.25rem;
-    font-weight: 600;
-    color: #171717;
-    margin: 35px 0 18px;
-}
-
-.bottom-card {
-    background: #ffffff;
-    border: 1px solid #e5e5e5;
-    border-radius: 16px;
-    padding: 22px;
-    text-align: center;
-    transition: 0.25s ease;
-}
-
-.bottom-card:hover {
-    background: #171717;
-    color: #ffffff;
-    transform: translateY(-4px);
-}
-
-.bottom-icon {
-    font-size: 1.8rem;
-    margin-bottom: 8px;
-}
-
-.bottom-title {
-    font-size: 1rem;
-    font-weight: 600;
-}
-
-.bottom-desc {
+.info-row span.label {
     color: #737373;
-    font-size: 0.85rem;
-    margin-top: 6px;
+    font-weight: 400;
 }
 
-.bottom-card:hover .bottom-desc {
-    color: #d4d4d4;
+.info-row span.value {
+    color: #171717;
+    font-weight: 600;
+    letter-spacing: 0.3px;
 }
 
 /* SIDEBAR */
+[data-testid="stSidebar"],
+[data-testid="stSidebarCollapsedControl"] {
+    visibility: visible !important;
+}
+
 [data-testid="stSidebar"] {
     background: #ffffff !important;
-    border-right: 1px solid #e5e5e5;
+    border-right: 1px solid #e5e5e5 !important;
 }
 
 [data-testid="stSidebarNav"] {
@@ -237,6 +170,10 @@ html, body, [class*="css"] {
     padding: 12px 16px !important;
     border-radius: 10px;
     color: #525252 !important;
+    font-family: 'Prompt', sans-serif;
+    font-weight: 500;
+    font-size: 0.95rem;
+    transition: all 0.2s ease;
 }
 
 [data-testid="stSidebarNav"] a:hover {
@@ -248,6 +185,26 @@ html, body, [class*="css"] {
     background: #171717 !important;
     color: #ffffff !important;
     font-weight: 600;
+    border-left: 3px solid #737373;
+}
+
+/* SIDEBAR LABELS */
+[data-testid="stSidebarNav"] li:nth-child(1) a * {
+    font-size: 0 !important;
+}
+
+[data-testid="stSidebarNav"] li:nth-child(1) a::after {
+    content: "🏠 หน้าหลัก";
+    font-size: 0.95rem !important;
+}
+
+[data-testid="stSidebarNav"] li:nth-child(2) a * {
+    font-size: 0 !important;
+}
+
+[data-testid="stSidebarNav"] li:nth-child(2) a::after {
+    content: "🧑‍💻 ผู้พัฒนา";
+    font-size: 0.95rem !important;
 }
 
 /* FOOTER */
@@ -255,8 +212,8 @@ html, body, [class*="css"] {
     text-align: center;
     color: #737373;
     margin-top: 45px;
-    padding: 25px 10px;
-    font-size: 0.83rem;
+    padding: 28px 20px;
+    font-size: 0.85rem;
     border-top: 1px solid #e5e5e5;
 }
 
@@ -265,137 +222,101 @@ footer, #MainMenu {
 }
 
 /* MOBILE */
-@media (max-width: 700px) {
-    .profile-container {
-        flex-direction: column;
-        gap: 28px;
-        padding: 24px 18px;
+@media (max-width: 600px) {
+    .hero h1 {
+        font-size: 2.3rem;
     }
 
-    .photo-column {
-        flex: none;
-        width: 100%;
+    .profile-card {
+        padding: 25px 20px;
     }
 
-    .profile-photo,
-    .photo-placeholder {
-        width: min(100%, 270px);
-        height: 300px;
-    }
-
-    .info-column {
-        width: 100%;
+    .profile-photo-wrap img {
+        width: 175px;
+        height: 175px;
     }
 }
 </style>
 """, unsafe_allow_html=True)
 
-# ---------- HEADER ----------
+# HEADER
 st.markdown("""
 <div class="hero">
-    <h1>ABOUT ME.</h1>
-    <p>ข้อมูลผู้พัฒนา Machine Learning Hub</p>
+    <h1>ผู้พัฒนา</h1>
+    <p>ข้อมูลผู้จัดทำโปรเจกต์ Machine Learning Hub</p>
 </div>
 """, unsafe_allow_html=True)
 
-# ---------- LOAD PHOTO ----------
+# PROFILE PHOTO
 photo_path = (
     Path(__file__).resolve().parent.parent
     / "assets"
     / "1.jpg"
 )
 
-photo_html = ""
-
 try:
     photo_b64 = base64.b64encode(
         photo_path.read_bytes()
     ).decode("utf-8")
 
-    photo_html = f"""
-        <img
-            class="profile-photo"
-            src="data:image/jpeg;base64,{photo_b64}"
-            alt="Developer Profile"
-        >
-    """
+    st.markdown(
+        f"""
+        <div class="profile-photo-wrap">
+            <img
+                src="data:image/jpeg;base64,{photo_b64}"
+                alt="Profile Photo"
+            >
+        </div>
+        """,
+        unsafe_allow_html=True,
+    )
+
 except (FileNotFoundError, OSError):
-    photo_html = """
-        <div class="photo-placeholder">🧑‍💻</div>
-    """
+    st.markdown("""
+    <div class="profile-photo-wrap">
+        <div style="
+            width:200px;
+            height:200px;
+            border-radius:50%;
+            background:#171717;
+            border:4px solid #ffffff;
+            outline:1px solid #d4d4d4;
+            display:flex;
+            align-items:center;
+            justify-content:center;
+            font-size:4rem;
+        ">🧑‍💻</div>
+    </div>
+    """, unsafe_allow_html=True)
 
-# ---------- PROFILE ----------
-st.markdown(f"""
-<div class="profile-container">
+# PROFILE INFORMATION
+st.markdown("""
+<div class="profile-card">
+    <div class="profile-tag">THE DEVELOPER</div>
 
-    <div class="photo-column">
-        {photo_html}
+    <h2>จิรศักดิ์ โมกกงจักร</h2>
+
+    <div class="info-row">
+        <span class="label">🎓 รหัสนักศึกษา</span>
+        <span class="value">664245003</span>
     </div>
 
-    <div class="info-column">
-        <div class="eyebrow">THE DEVELOPER</div>
-
-        <div class="profile-name">
-            จิรศักดิ์ โมกกงจักร
-        </div>
-
-        <div class="profile-role">
-            Computer Science Student
-        </div>
-
-        <div class="info-row">
-            <span class="info-label">🎓 รหัสนักศึกษา</span>
-            <span class="info-value">664245003</span>
-        </div>
-
-        <div class="info-row">
-            <span class="info-label">📚 หมู่เรียน</span>
-            <span class="info-value">Sec. 66/43</span>
-        </div>
-
-        <div class="info-row">
-            <span class="info-label">💻 สาขาวิชา</span>
-            <span class="info-value">Computer Science</span>
-        </div>
-
-        <div class="profile-badge">
-            ✦ MACHINE LEARNING HUB
-        </div>
+    <div class="info-row">
+        <span class="label">📚 หมู่เรียน</span>
+        <span class="value">Sec. 66/43</span>
     </div>
 
+    <div class="info-row">
+        <span class="label">💻 สาขาวิชา</span>
+        <span class="value">Computer Science</span>
+    </div>
 </div>
 """, unsafe_allow_html=True)
 
-# ---------- SKILLS / PROJECTS ----------
-st.markdown(
-    '<div class="section-title">WHAT I DO</div>',
-    unsafe_allow_html=True,
-)
-
-col1, col2, col3 = st.columns(3, gap="medium")
-
-items = [
-    ("💻", "Programming", "พัฒนาโปรแกรมและเว็บไซต์"),
-    ("🤖", "Machine Learning", "เรียนรู้การใช้โมเดล AI"),
-    ("🗄️", "Database", "จัดการข้อมูลและฐานข้อมูล"),
-]
-
-for col, (icon, title, desc) in zip(
-    [col1, col2, col3], items
-):
-    with col:
-        st.markdown(f"""
-        <div class="bottom-card">
-            <div class="bottom-icon">{icon}</div>
-            <div class="bottom-title">{title}</div>
-            <div class="bottom-desc">{desc}</div>
-        </div>
-        """, unsafe_allow_html=True)
-
-# ---------- FOOTER ----------
+# FOOTER
 st.markdown("""
 <div class="custom-footer">
     <strong>ML HUB</strong><br>
-    Designed with simplicity · Made with ♥ using Streamlit · 2026
+    Made with ♥ using Streamlit · 2026
 </div>
 """, unsafe_allow_html=True)
