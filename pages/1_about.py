@@ -1,6 +1,7 @@
 
 import base64
 from pathlib import Path
+from textwrap import dedent
 
 import streamlit as st
 
@@ -11,11 +12,11 @@ st.set_page_config(
     initial_sidebar_state="collapsed",
 )
 
-st.markdown("""
+# ==================== CSS ====================
+st.markdown(dedent("""
 <style>
 @import url('https://fonts.googleapis.com/css2?family=Prompt:wght@300;400;500;600;700&family=Inter:wght@400;600;700;800&display=swap');
 
-/* MAIN */
 .stApp {
     background: #f5f5f5;
     color: #171717;
@@ -35,14 +36,14 @@ html, body, [class*="css"] {
 /* HEADER */
 .hero {
     text-align: center;
-    padding: 45px 20px 20px;
+    padding: 35px 20px 15px;
 }
 
 .hero h1 {
     font-family: 'Inter', 'Prompt', sans-serif;
     font-size: 3rem;
     font-weight: 800;
-    color: #111111;
+    color: #111;
     letter-spacing: -1px;
     margin-bottom: 10px;
 }
@@ -50,89 +51,100 @@ html, body, [class*="css"] {
 .hero p {
     color: #737373;
     font-size: 1rem;
-    font-weight: 300;
 }
 
-/* PROFILE PHOTO */
+/* PHOTO */
 .profile-photo-wrap {
     display: flex;
     justify-content: center;
-    margin-top: 25px;
+    margin-top: 20px;
 }
 
-.profile-photo-wrap img {
+.profile-photo-wrap img,
+.profile-placeholder {
     width: 200px;
     height: 200px;
     border-radius: 50%;
-    object-fit: cover;
-    border: 4px solid #ffffff;
+    border: 4px solid white;
     outline: 1px solid #d4d4d4;
     box-shadow: 0 12px 35px rgba(0, 0, 0, 0.12);
-    transition: all 0.3s ease;
+}
+
+.profile-photo-wrap img {
+    object-fit: cover;
     filter: grayscale(100%);
+    transition: 0.3s ease;
 }
 
 .profile-photo-wrap img:hover {
     transform: scale(1.04);
     filter: grayscale(0%);
-    box-shadow: 0 15px 40px rgba(0, 0, 0, 0.18);
+}
+
+.profile-placeholder {
+    background: #171717;
+    color: white;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 4rem;
 }
 
 /* PROFILE CARD */
 .profile-card {
+    box-sizing: border-box;
+    width: 100%;
     max-width: 550px;
     margin: 30px auto 0;
-    background: #ffffff;
+    padding: 32px 36px;
+    background: #fff;
     border: 1px solid #e5e5e5;
     border-radius: 22px;
-    padding: 32px 36px;
-    text-align: center;
     box-shadow: 0 10px 35px rgba(0, 0, 0, 0.04);
-    transition: all 0.3s ease;
 }
 
-.profile-card:hover {
-    border-color: #a3a3a3;
-    box-shadow: 0 15px 40px rgba(0, 0, 0, 0.08);
+.profile-tag-wrap {
+    text-align: center;
+    margin-bottom: 24px;
 }
 
 .profile-tag {
     display: inline-block;
     background: #171717;
-    color: #ffffff;
-    padding: 6px 15px;
+    color: #fff;
+    padding: 7px 16px;
     border-radius: 30px;
     font-size: 0.78rem;
     letter-spacing: 1px;
-    margin-bottom: 22px;
 }
 
-/* NAME + STUDENT ID */
+/* NAME AND ID */
 .name-id-row {
     display: flex;
     justify-content: space-between;
     align-items: center;
     flex-wrap: wrap;
     gap: 12px;
-    margin-bottom: 22px;
-    text-align: left;
+    padding-bottom: 22px;
+    border-bottom: 1px solid #e5e5e5;
 }
 
 .name-id-row h2 {
-    color: #111111;
-    font-family: 'Prompt', sans-serif;
-    font-size: 1.4rem;
-    font-weight: 700;
     margin: 0;
+    color: #111;
+    font-family: 'Prompt', sans-serif;
+    font-size: 1.35rem;
+    font-weight: 700;
 }
 
 .student-id {
+    display: inline-block;
     background: #171717;
-    color: #ffffff;
-    padding: 7px 12px;
+    color: #fff;
+    padding: 8px 12px;
     border-radius: 8px;
-    font-weight: 600;
     font-size: 0.9rem;
+    font-weight: 600;
     white-space: nowrap;
 }
 
@@ -142,34 +154,30 @@ html, body, [class*="css"] {
     justify-content: space-between;
     align-items: center;
     gap: 12px;
-    padding: 16px 4px;
-    border-top: 1px solid #e5e5e5;
-    color: #171717;
+    padding: 17px 4px;
+    border-bottom: 1px solid #e5e5e5;
     font-size: 0.95rem;
-    text-align: left;
 }
 
-.info-row span.label {
+.info-row:last-child {
+    border-bottom: none;
+    padding-bottom: 0;
+}
+
+.info-row .label {
     color: #737373;
-    font-weight: 400;
 }
 
-.info-row span.value {
+.info-row .value {
     color: #171717;
     font-weight: 600;
-    letter-spacing: 0.3px;
     text-align: right;
 }
 
 /* SIDEBAR */
-[data-testid="stSidebar"],
-[data-testid="stSidebarCollapsedControl"] {
-    visibility: visible !important;
-}
-
 [data-testid="stSidebar"] {
-    background: #ffffff !important;
-    border-right: 1px solid #e5e5e5 !important;
+    background: #fff !important;
+    border-right: 1px solid #e5e5e5;
 }
 
 [data-testid="stSidebarNav"] {
@@ -195,21 +203,17 @@ html, body, [class*="css"] {
     border-radius: 10px;
     color: #525252 !important;
     font-family: 'Prompt', sans-serif;
-    font-weight: 500;
-    font-size: 0.95rem;
-    transition: all 0.2s ease;
 }
 
 [data-testid="stSidebarNav"] a:hover {
     background: #f0f0f0 !important;
-    color: #111111 !important;
+    color: #111 !important;
 }
 
 [data-testid="stSidebarNav"] a[aria-current="page"] {
     background: #171717 !important;
-    color: #ffffff !important;
+    color: #fff !important;
     font-weight: 600;
-    border-left: 3px solid #737373;
 }
 
 /* SIDEBAR LABELS */
@@ -255,35 +259,35 @@ footer, #MainMenu {
         padding: 25px 20px;
     }
 
-    .profile-photo-wrap img {
+    .profile-photo-wrap img,
+    .profile-placeholder {
         width: 175px;
         height: 175px;
     }
 
     .name-id-row {
         flex-direction: column;
-        align-items: center;
-        text-align: center;
+        align-items: flex-start;
     }
 
     .name-id-row h2 {
-        font-size: 1.25rem;
+        font-size: 1.2rem;
     }
 }
 </style>
-""", unsafe_allow_html=True)
+"""), unsafe_allow_html=True)
 
 
-# HEADER
-st.markdown("""
+# ==================== HEADER ====================
+st.markdown(dedent("""
 <div class="hero">
     <h1>ผู้พัฒนา</h1>
     <p>ข้อมูลผู้จัดทำโปรเจกต์ Machine Learning Hub</p>
 </div>
-""", unsafe_allow_html=True)
+"""), unsafe_allow_html=True)
 
 
-# PROFILE PHOTO
+# ==================== PROFILE PHOTO ====================
 photo_path = (
     Path(__file__).resolve().parent.parent
     / "assets"
@@ -295,42 +299,30 @@ try:
         photo_path.read_bytes()
     ).decode("utf-8")
 
-    st.markdown(
-        f"""
-        <div class="profile-photo-wrap">
-            <img
-                src="data:image/jpeg;base64,{photo_b64}"
-                alt="Profile Photo"
-            >
-        </div>
-        """,
-        unsafe_allow_html=True,
-    )
+    st.markdown(dedent(f"""
+    <div class="profile-photo-wrap">
+        <img
+            src="data:image/jpeg;base64,{photo_b64}"
+            alt="Profile Photo"
+        >
+    </div>
+    """), unsafe_allow_html=True)
 
 except (FileNotFoundError, OSError):
-    st.markdown("""
+    st.markdown(dedent("""
     <div class="profile-photo-wrap">
-        <div style="
-            width:200px;
-            height:200px;
-            border-radius:50%;
-            background:#171717;
-            border:4px solid #ffffff;
-            outline:1px solid #d4d4d4;
-            display:flex;
-            align-items:center;
-            justify-content:center;
-            font-size:4rem;
-        ">🧑‍💻</div>
+        <div class="profile-placeholder">🧑‍💻</div>
     </div>
-    """, unsafe_allow_html=True)
+    """), unsafe_allow_html=True)
 
 
-# PROFILE INFORMATION
-st.markdown("""
+# ==================== PROFILE INFORMATION ====================
+st.markdown(dedent("""
 <div class="profile-card">
 
-    <div class="profile-tag">THE DEVELOPER</div>
+    <div class="profile-tag-wrap">
+        <span class="profile-tag">THE DEVELOPER</span>
+    </div>
 
     <div class="name-id-row">
         <h2>จิรศักดิ์ โมกกงจักร</h2>
@@ -348,13 +340,13 @@ st.markdown("""
     </div>
 
 </div>
-""", unsafe_allow_html=True)
+"""), unsafe_allow_html=True)
 
 
-# FOOTER
-st.markdown("""
+# ==================== FOOTER ====================
+st.markdown(dedent("""
 <div class="custom-footer">
     <strong>ML HUB</strong><br>
     Made with ♥ using Streamlit · 2026
 </div>
-""", unsafe_allow_html=True)
+"""), unsafe_allow_html=True)
